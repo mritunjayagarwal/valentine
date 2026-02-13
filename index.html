@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,10 +27,12 @@
       font-family: 'Cormorant Garamond', serif;
       background: var(--cream);
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       min-height: 100vh;
       position: relative;
+      padding: 60px 0 40px;
     }
 
     /* ── Animated gradient bg ── */
@@ -276,10 +279,14 @@
     }
 
     .modal-box p {
-      font-style: italic;
-      color: #c0526a;
-      font-size: 1.1rem;
-      line-height: 1.6;
+      font-style: normal;
+      color: #7a2035;
+      font-size: 1rem;
+      line-height: 1.75;
+      text-align: left;
+      max-height: 52vh;
+      overflow-y: auto;
+      padding-right: 4px;
     }
 
     .modal-close {
@@ -296,6 +303,77 @@
       transition: transform 0.2s;
     }
     .modal-close:hover { transform: scale(1.05); }
+
+    /* ── Letter section ── */
+    .letter-wrap {
+      position: relative; z-index: 2;
+      max-width: 560px;
+      width: 90vw;
+      margin: 32px auto 60px;
+      display: none;
+    }
+
+    .letter {
+      background: rgba(255,255,255,0.75);
+      backdrop-filter: blur(18px);
+      border: 1.5px solid rgba(232, 49, 91, 0.15);
+      border-radius: 28px;
+      padding: 48px 52px;
+      box-shadow:
+        0 8px 48px rgba(184,23,64,0.10),
+        inset 0 1px 0 rgba(255,255,255,0.8);
+      position: relative;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .letter.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .letter::before {
+      content: '💌';
+      position: absolute;
+      top: -24px; left: 50%;
+      transform: translateX(-50%);
+      font-size: 40px;
+      filter: drop-shadow(0 4px 10px rgba(184,23,64,0.3));
+    }
+
+    .letter-line {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.13rem;
+      color: #7a2035;
+      line-height: 1.85;
+      display: block;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      margin-bottom: 4px;
+    }
+
+    .letter-line.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .letter-line.salutation {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--rose-deep);
+      margin-bottom: 18px;
+    }
+
+    .letter-line.gap { margin-bottom: 14px; }
+
+    .letter-line.sign-off {
+      font-style: italic;
+      margin-top: 18px;
+      color: var(--rose-deep);
+    }
   </style>
 </head>
 <body>
@@ -316,12 +394,27 @@
     </div>
   </div>
 
+  <!-- Letter -->
+  <div class="letter-wrap">
+    <div class="letter" id="letter">
+      <span class="letter-line salutation">Meri Vasudha,</span>
+      <span class="letter-line gap">Main Agra se hoon. Tu Jaipur mein hai. But yaar, distance ka kya hai.</span>
+      <span class="letter-line gap">Main Jaipur aaunga. Aur agar tu bhaagi, toh main Delhi tak aaunga. Phir Mumbai. Phir Goa. Phir pahad. Phir samundar. Phir koi aur desh. Phir aur aage.</span>
+      <span class="letter-line gap">Aur agar tu Moon tak pahunch gayi — toh wahan bhi aa jaaunga. Thoda breathless hounga zaroor. Par aa jaaunga.</span>
+      <span class="letter-line gap">Kyunki main tujhe pareshaan karna band nahi karunga. Aaj nahi. Kal nahi. Kabhi nahi.</span>
+      <span class="letter-line gap">Good morning texts bhejunga. Bekar jokes bhejunga. Teri silly baatein yaad dilaata rahunga. Aur haan — main aata rahunga. Baar baar. Aur baar baar.</span>
+      <span class="letter-line gap">Tu phans gayi hai mujhse, Vasudha. Agra se Jaipur se Moon tak aur usse bhi aage.</span>
+      <span class="letter-line gap">Happy Valentine's Day. 🌹</span>
+      <span class="letter-line sign-off">Tera — hamesha aur irritatingly. 💕</span>
+    </div>
+  </div>
+
   <!-- Yes modal -->
   <div id="yes-modal">
     <div class="modal-box">
       <div class="big-heart">💗</div>
       <h2>She said YES! 🎉</h2>
-      <p>My heart just did a thousand somersaults.<br/>You've made me the luckiest one alive, Vasudha. 💌</p>
+      <p>Meri Vasudha,<br/>Main Agra se hoon. Tu Jaipur mein hai. But yaar, distance ka kya hai.<br/><br/>Main Jaipur aaunga. Aur agar tu bhaagi, toh main Delhi tak aaunga. Phir Mumbai. Phir Goa. Phir pahad. Phir samundar. Phir koi aur desh. Phir aur aage.<br/><br/>Aur agar tu Moon tak pahunch gayi — toh wahan bhi aa jaaunga. Thoda breathless hounga zaroor. Par aa jaaunga.<br/><br/>Kyunki main tujhe pareshaan karna band nahi karunga. Aaj nahi. Kal nahi. Kabhi nahi.<br/><br/>Good morning texts bhejunga. Bekar jokes bhejunga. Teri silly baatein yaad dilaata rahunga. Aur haan — main aata rahunga. Baar baar. Aur baar baar.<br/><br/>Tu phans gayi hai mujhse, Vasudha. Agra se Jaipur se Moon tak aur usse bhi aage.<br/><br/>Happy Valentine's Day. 🌹<br/><br/><em>Tera — hamesha aur irritatingly. 💕</em></p>
       <button class="modal-close" onclick="closeModal()">Forever yours 💝</button>
     </div>
   </div>
@@ -446,7 +539,21 @@
     }
   }
 
-  /* keep burst going while modal is open */
+  /* ── Letter reveal on Yes ── */
+  function revealLetter() {
+    const wrap = document.querySelector('.letter-wrap');
+    const letter = document.getElementById('letter');
+    const lines  = letter.querySelectorAll('.letter-line');
+    wrap.style.display = 'block';
+    setTimeout(() => {
+      letter.classList.add('visible');
+      lines.forEach((line, i) => {
+        setTimeout(() => line.classList.add('show'), i * 150);
+      });
+      // Smooth scroll to letter
+      setTimeout(() => wrap.scrollIntoView({ behavior: 'smooth', block: 'start' }), 200);
+    }, 50);
+  }
   let burstInterval;
   document.getElementById('btn-yes').addEventListener('click', () => {
     burstInterval = setInterval(() => shootEmojis(30), 1200);
@@ -456,6 +563,7 @@
     document.getElementById('yes-modal').classList.remove('show');
     clearInterval(burstInterval);
     shootEmojis(60);
+    revealLetter();
   }
 </script>
 </body>
