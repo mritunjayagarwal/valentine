@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>💌 For Vasudha</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --rose:      #e8315b;
+      --rose-deep: #b81740;
+      --blush:     #ffd6e0;
+      --cream:     #fff5f7;
+      --petal:     #ffb3c6;
+      --gold:      #d4a017;
+    }
+
+    html, body {
+      width: 100%; height: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: 'Cormorant Garamond', serif;
+      background: var(--cream);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* ── Animated gradient bg ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 20%, #ffe4ec 0%, transparent 55%),
+        radial-gradient(ellipse at 80% 80%, #ffd6e0 0%, transparent 55%),
+        radial-gradient(ellipse at 50% 50%, #fff0f3 0%, transparent 70%);
+      animation: bgPulse 6s ease-in-out infinite alternate;
+      z-index: 0;
+    }
+
+    @keyframes bgPulse {
+      from { opacity: 0.7; }
+      to   { opacity: 1; }
+    }
+
+    /* ── Floating petals in bg ── */
+    .petal-layer {
+      position: fixed; inset: 0;
+      pointer-events: none; z-index: 0;
+      overflow: hidden;
+    }
+
+    .petal {
+      position: absolute;
+      width: 12px; height: 16px;
+      background: radial-gradient(ellipse at 30% 30%, var(--petal), var(--rose));
+      border-radius: 50% 0 50% 0;
+      opacity: 0;
+      animation: petalFall linear infinite;
+      transform-origin: center center;
+    }
+
+    @keyframes petalFall {
+      0%   { transform: translateY(-60px) rotate(0deg) scale(1);   opacity: 0; }
+      10%  { opacity: 0.6; }
+      90%  { opacity: 0.4; }
+      100% { transform: translateY(110vh) rotate(720deg) scale(0.5); opacity: 0; }
+    }
+
+    /* ── Card ── */
+    .card {
+      position: relative; z-index: 2;
+      background: rgba(255,255,255,0.72);
+      backdrop-filter: blur(18px);
+      border: 1.5px solid rgba(232, 49, 91, 0.18);
+      border-radius: 32px;
+      padding: 64px 72px 56px;
+      text-align: center;
+      max-width: 560px;
+      width: 90vw;
+      box-shadow:
+        0 8px 48px rgba(184,23,64,0.12),
+        0 2px 8px  rgba(184,23,64,0.06),
+        inset 0 1px 0 rgba(255,255,255,0.8);
+      animation: cardIn 1s cubic-bezier(0.34,1.56,0.64,1) both;
+    }
+
+    @keyframes cardIn {
+      from { opacity: 0; transform: scale(0.82) translateY(30px); }
+      to   { opacity: 1; transform: scale(1)    translateY(0);    }
+    }
+
+    /* decorative top rose */
+    .card::before {
+      content: '🌹';
+      position: absolute;
+      top: -28px; left: 50%;
+      transform: translateX(-50%);
+      font-size: 52px;
+      filter: drop-shadow(0 4px 12px rgba(184,23,64,0.4));
+      animation: roseFloat 3s ease-in-out infinite;
+    }
+
+    @keyframes roseFloat {
+      0%, 100% { transform: translateX(-50%) translateY(0)    rotate(-5deg); }
+      50%       { transform: translateX(-50%) translateY(-8px) rotate(5deg);  }
+    }
+
+    /* corner hearts */
+    .card::after {
+      content: '💕';
+      position: absolute;
+      bottom: 18px; right: 22px;
+      font-size: 22px;
+      opacity: 0.5;
+      animation: twinkle 2.4s ease-in-out infinite;
+    }
+
+    @keyframes twinkle {
+      0%,100% { opacity: 0.4; transform: scale(1);    }
+      50%      { opacity: 0.9; transform: scale(1.25); }
+    }
+
+    /* ── Heading ── */
+    .heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      font-weight: 700;
+      color: var(--rose-deep);
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+      margin-bottom: 8px;
+      text-shadow: 0 2px 12px rgba(184,23,64,0.15);
+      animation: headingIn 1.2s 0.3s cubic-bezier(0.34,1.56,0.64,1) both;
+    }
+
+    @keyframes headingIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0);    }
+    }
+
+    .subtext {
+      font-style: italic;
+      font-size: 1.05rem;
+      color: #c0526a;
+      margin-bottom: 44px;
+      opacity: 0;
+      animation: fadeIn 1s 0.9s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    /* ── Buttons ── */
+    .btns {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeIn 1s 1.1s ease both;
+    }
+
+    .btn {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      border: none;
+      border-radius: 50px;
+      padding: 14px 42px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Yes button */
+    .btn-yes {
+      background: linear-gradient(135deg, #e8315b 0%, #b81740 100%);
+      color: #fff;
+      box-shadow: 0 6px 24px rgba(184,23,64,0.35);
+    }
+    .btn-yes::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.18), transparent);
+      border-radius: inherit;
+    }
+    .btn-yes:hover {
+      transform: scale(1.08) translateY(-2px);
+      box-shadow: 0 10px 36px rgba(184,23,64,0.45);
+    }
+    .btn-yes:active { transform: scale(1.02); }
+
+    /* No button */
+    .btn-no {
+      background: transparent;
+      color: #b81740;
+      border: 1.5px solid #e8315b;
+      box-shadow: 0 2px 12px rgba(232,49,91,0.1);
+    }
+    .btn-no:hover {
+      /* position shift handled by JS */
+      box-shadow: 0 4px 20px rgba(232,49,91,0.15);
+    }
+
+    /* ── Love explosion overlay ── */
+    #burst-layer {
+      position: fixed; inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      overflow: hidden;
+    }
+
+    .love-emoji {
+      position: absolute;
+      font-size: 2rem;
+      user-select: none;
+      pointer-events: none;
+      animation: loveFloat ease-out forwards;
+      will-change: transform, opacity;
+    }
+
+    @keyframes loveFloat {
+      0%   { opacity: 1; transform: translateY(0) scale(0.5) rotate(0deg); }
+      60%  { opacity: 1; }
+      100% { opacity: 0; transform: translateY(-80vh) scale(1.4) rotate(var(--spin)); }
+    }
+
+    /* ── Yes modal ── */
+    #yes-modal {
+      position: fixed; inset: 0;
+      background: rgba(255, 220, 230, 0.6);
+      backdrop-filter: blur(12px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+    }
+
+    #yes-modal.show { display: flex; }
+
+    .modal-box {
+      background: white;
+      border-radius: 28px;
+      padding: 52px 60px;
+      text-align: center;
+      max-width: 400px;
+      box-shadow: 0 24px 80px rgba(184,23,64,0.25);
+      animation: modalPop 0.6s cubic-bezier(0.34,1.56,0.64,1) both;
+    }
+
+    @keyframes modalPop {
+      from { opacity: 0; transform: scale(0.6) rotate(-4deg); }
+      to   { opacity: 1; transform: scale(1) rotate(0deg);    }
+    }
+
+    .modal-box .big-heart { font-size: 64px; animation: heartBeat 0.8s ease-in-out infinite alternate; }
+    @keyframes heartBeat {
+      from { transform: scale(1);    }
+      to   { transform: scale(1.18); }
+    }
+
+    .modal-box h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: var(--rose-deep);
+      margin: 16px 0 8px;
+    }
+
+    .modal-box p {
+      font-style: italic;
+      color: #c0526a;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    .modal-close {
+      margin-top: 28px;
+      background: linear-gradient(135deg, #e8315b, #b81740);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 12px 36px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      cursor: pointer;
+      box-shadow: 0 4px 18px rgba(184,23,64,0.3);
+      transition: transform 0.2s;
+    }
+    .modal-close:hover { transform: scale(1.05); }
+  </style>
+</head>
+<body>
+
+  <!-- Floating background petals -->
+  <div class="petal-layer" id="petal-layer"></div>
+
+  <!-- Emoji burst layer -->
+  <div id="burst-layer"></div>
+
+  <!-- Main card -->
+  <div class="card">
+    <h1 class="heading">Will you be my<br/>Valentine, Vasudha?</h1>
+    <p class="subtext">Every heartbeat says your name… 🌸</p>
+    <div class="btns">
+      <button class="btn btn-yes" id="btn-yes">Yes, always! 💖</button>
+      <button class="btn btn-no"  id="btn-no">No</button>
+    </div>
+  </div>
+
+  <!-- Yes modal -->
+  <div id="yes-modal">
+    <div class="modal-box">
+      <div class="big-heart">💗</div>
+      <h2>She said YES! 🎉</h2>
+      <p>My heart just did a thousand somersaults.<br/>You've made me the luckiest one alive, Vasudha. 💌</p>
+      <button class="modal-close" onclick="closeModal()">Forever yours 💝</button>
+    </div>
+  </div>
+
+<script>
+  /* ── Background petals ── */
+  const petalLayer = document.getElementById('petal-layer');
+  const PETAL_COUNT = 22;
+  const EMOJIS_LIST = ['❤️','💕','💖','💗','💓','💞','🌹','💘','💝','😍','🌸','💋','✨'];
+
+  for (let i = 0; i < PETAL_COUNT; i++) {
+    const p = document.createElement('div');
+    p.className = 'petal';
+    const size = 8 + Math.random() * 14;
+    p.style.cssText = `
+      left: ${Math.random() * 100}%;
+      top: ${-20 - Math.random() * 40}px;
+      width: ${size}px;
+      height: ${size * 1.3}px;
+      animation-duration: ${5 + Math.random() * 8}s;
+      animation-delay: ${-Math.random() * 10}s;
+      opacity: 0;
+    `;
+    petalLayer.appendChild(p);
+  }
+
+  /* ── NO button flee logic ── */
+  const noBtn = document.getElementById('btn-no');
+
+  // Track the button's current CENTER position in viewport coords
+  // Initialise once the DOM is ready
+  let btnW = 0, btnH = 0;
+  let posX = 0, posY = 0;   // current center of the button
+  let initialized = false;
+
+  function initNoBtnPos() {
+    if (initialized) return;
+    const rect = noBtn.getBoundingClientRect();
+    btnW = rect.width;
+    btnH = rect.height;
+    posX = rect.left + btnW / 2;
+    posY = rect.top  + btnH / 2;
+    // Switch to fixed positioning anchored at that exact spot
+    noBtn.style.position  = 'fixed';
+    noBtn.style.left      = posX + 'px';
+    noBtn.style.top       = posY + 'px';
+    noBtn.style.transform = 'translate(-50%, -50%)';
+    noBtn.style.transition = 'left 0.12s ease-out, top 0.12s ease-out';
+    noBtn.style.margin    = '0';
+    initialized = true;
+  }
+
+  document.addEventListener('mousemove', function(e) {
+    if (!initialized) return;
+
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+
+    // Vector from cursor to button center
+    const dx = posX - e.clientX;
+    const dy = posY - e.clientY;
+    const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+
+    // Only flee when cursor is within 120px of button center
+    if (dist > 120) return;
+
+    const push = 130;
+    let nx = posX + (dx / dist) * push;
+    let ny = posY + (dy / dist) * push;
+
+    // Hard-clamp: keep entire button inside viewport with 8px padding
+    const pad = 8;
+    const halfW = btnW / 2 + pad;
+    const halfH = btnH / 2 + pad;
+    nx = Math.max(halfW, Math.min(vw - halfW, nx));
+    ny = Math.max(halfH, Math.min(vh - halfH, ny));
+
+    posX = nx;
+    posY = ny;
+
+    noBtn.style.left = posX + 'px';
+    noBtn.style.top  = posY + 'px';
+  });
+
+  // Initialise position on first hover
+  noBtn.addEventListener('mouseenter', initNoBtnPos);
+  // Also init on first mousemove over body in case mouseenter fires late
+  document.addEventListener('mousemove', initNoBtnPos, { once: true });
+
+  /* ── YES explosion ── */
+  const burstLayer = document.getElementById('burst-layer');
+  document.getElementById('btn-yes').addEventListener('click', () => {
+    shootEmojis(120);
+    setTimeout(() => {
+      document.getElementById('yes-modal').classList.add('show');
+    }, 600);
+  });
+
+  function shootEmojis(count) {
+    for (let i = 0; i < count; i++) {
+      setTimeout(() => {
+        const el = document.createElement('div');
+        el.className = 'love-emoji';
+        el.textContent = EMOJIS_LIST[Math.floor(Math.random() * EMOJIS_LIST.length)];
+
+        const size = 1.2 + Math.random() * 2.6;
+        const x    = Math.random() * window.innerWidth;
+        const y    = window.innerHeight * 0.4 + Math.random() * window.innerHeight * 0.6;
+        const dur  = 1.4 + Math.random() * 2;
+        const spin = (Math.random() * 720 - 360) + 'deg';
+
+        el.style.cssText = `
+          left: ${x}px;
+          top:  ${y}px;
+          font-size: ${size}rem;
+          --spin: ${spin};
+          animation-duration: ${dur}s;
+        `;
+        burstLayer.appendChild(el);
+        setTimeout(() => el.remove(), dur * 1000 + 100);
+      }, i * 18);
+    }
+  }
+
+  /* keep burst going while modal is open */
+  let burstInterval;
+  document.getElementById('btn-yes').addEventListener('click', () => {
+    burstInterval = setInterval(() => shootEmojis(30), 1200);
+  });
+
+  function closeModal() {
+    document.getElementById('yes-modal').classList.remove('show');
+    clearInterval(burstInterval);
+    shootEmojis(60);
+  }
+</script>
+</body>
+</html>
